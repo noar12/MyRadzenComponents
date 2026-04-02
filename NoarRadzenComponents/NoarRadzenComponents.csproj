@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <PackageId>NoarRadzenComponents</PackageId>
-    <Version>0.0.1</Version>
+    <Version>0.0.2</Version>
     <Authors>noar12</Authors>
     <Description>Bibliothèque de composants Radzen pour Blazor.</Description>
     <PackageTags>radzen;blazor;components</PackageTags>
