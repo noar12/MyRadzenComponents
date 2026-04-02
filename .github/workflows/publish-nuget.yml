@@ -26,6 +26,9 @@ jobs:
       - name: Restore
         run: dotnet restore NoarRadzenComponents/NoarRadzenComponents.csproj
 
+      - name: Build Release
+        run: dotnet build NoarRadzenComponents/NoarRadzenComponents.csproj -c Release
+
       - name: Pack NuGet package
         run: |
           set -e
@@ -36,10 +39,10 @@ jobs:
           version="${version#v}"
           if [ -n "$version" ]; then
             echo "Package version = $version"
-            dotnet pack NoarRadzenComponents/NoarRadzenComponents.csproj -c Release -o ./artifacts /p:Version="$version"
+            dotnet pack NoarRadzenComponents/NoarRadzenComponents.csproj -c Release -o ./artifacts /p:Version="$version" --no-restore --no-build
           else
             echo "No version provided, pack with csproj/default version"
-            dotnet pack NoarRadzenComponents/NoarRadzenComponents.csproj -c Release -o ./artifacts
+            dotnet pack NoarRadzenComponents/NoarRadzenComponents.csproj -c Release -o ./artifacts --no-restore --no-build
           fi
 
       - name: Publish to GitHub Packages
