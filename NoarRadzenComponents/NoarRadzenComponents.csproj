@@ -4,13 +4,25 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <PackageId>NoarRadzenComponents</PackageId>
+    <Version>0.0.1</Version>
+    <Authors>noar12</Authors>
+    <Description>Bibliothèque de composants Radzen pour Blazor.</Description>
+    <PackageTags>radzen;blazor;components</PackageTags>
+    <PackageProjectUrl>https://github.com/tonrepo</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/tonrepo</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
 
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
-
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Radzen.Blazor" Version="*" />
   </ItemGroup>  

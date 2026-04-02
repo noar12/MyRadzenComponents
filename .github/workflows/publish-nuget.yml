@@ -1,0 +1,50 @@
+name: Publish NuGet package
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to publish (ex: 1.0.0). Si vide, utilise le tag ou le tag doit être passé manuellement.'
+        required: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore
+        run: dotnet restore NoarRadzenComponents/NoarRadzenComponents.csproj
+
+      - name: Pack NuGet package
+        run: |
+          set -e
+          version="${{ github.ref_name }}"
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "${{ github.event.inputs.version }}" ]; then
+            version="${{ github.event.inputs.version }}"
+          fi
+          version="${version#v}"
+          if [ -n "$version" ]; then
+            echo "Package version = $version"
+            dotnet pack NoarRadzenComponents/NoarRadzenComponents.csproj -c Release -o ./artifacts /p:Version="$version"
+          else
+            echo "No version provided, pack with csproj/default version"
+            dotnet pack NoarRadzenComponents/NoarRadzenComponents.csproj -c Release -o ./artifacts
+          fi
+
+      - name: Publish to GitHub Packages
+        run: |
+          dotnet nuget push ./artifacts/*.nupkg \
+            --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" \
+            --api-key "${{ secrets.GITHUB_TOKEN }}" \
+            --skip-duplicate
