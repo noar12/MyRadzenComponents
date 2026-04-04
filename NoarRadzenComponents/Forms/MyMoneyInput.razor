@@ -1,0 +1,20 @@
+﻿<RadzenFormField Text="@($"{Label} {Symbol}")" Variant="@Variant">
+    <RadzenNumeric TValue="decimal" Value="@Value" Change="OnChange" />
+</RadzenFormField>
+@code {
+    [Parameter]
+    public decimal Value { get; set; }
+    [Parameter]
+    public string Label { get; set; } = "";
+    [Parameter]
+    public string Symbol { get; set; } = "";
+    [Parameter]
+    public Variant Variant { get; set; } = Variant.Outlined;
+    [Parameter]
+    public EventCallback<decimal> ValueChanged { get; set; }
+    private void OnChange(decimal newValue)
+    {
+        Value = newValue;
+        ValueChanged.InvokeAsync(newValue);
+    }
+}

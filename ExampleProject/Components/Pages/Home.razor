@@ -4,3 +4,8 @@
 <PageTitle>Home</PageTitle>
 
 <MyDatePicker />
+<MyMoneyInput Label="Price" Symbol="CHF" @bind-Value="_money" />
+@_money
+@code{
+    private decimal _money;
+}
