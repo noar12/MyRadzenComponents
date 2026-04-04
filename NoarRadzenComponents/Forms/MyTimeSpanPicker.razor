@@ -1,0 +1,26 @@
+﻿<RadzenFormField Text="@Label" Variant="@Variant" class="@Class">
+    <RadzenTimeSpanPicker Value="@Value" TimeSpanFormat="@TimeSpanFormat" Change="OnChange" />
+</RadzenFormField>
+@code {
+    [Parameter]
+    public TimeSpan Value { get; set; }
+    [Parameter]
+    public string Label { get; set; } = "";
+    [Parameter]
+    public Variant Variant { get; set; } = Variant.Outlined;
+    [Parameter]
+    public EventCallback<TimeSpan> ValueChanged { get; set; }
+    [Parameter]
+    public string TimeSpanFormat { get; set; } = "d'd 'h'h 'm'min 's's'";
+    [Parameter] public string Class { get; set; } = "";
+    private void OnChange(TimeSpan? newValue)
+    {
+        if (newValue != null)
+        {
+            Value = (TimeSpan)newValue;
+            ValueChanged.InvokeAsync((TimeSpan)newValue);
+        }
+        
+        
+    }
+}

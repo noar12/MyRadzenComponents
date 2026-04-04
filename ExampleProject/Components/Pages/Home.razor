@@ -2,10 +2,16 @@
 @using NoarRadzenComponents.Forms
 @rendermode InteractiveServer
 <PageTitle>Home</PageTitle>
-
-<MyDatePicker />
-<MyMoneyInput Label="Price" Symbol="CHF" @bind-Value="_money" />
-@_money
-@code{
+<RadzenStack>
+    <MyDatePicker Label="Date" @bind-Value="_date" />
+    <MyDateIndicator Label="Date" Value="_date" />
+    <MyTimeSpanPicker Label="Time Span" @bind-Value="_timespan" />
+    <MyTimeSpanIndicator Label="Time Span" Value="_timespan" />
+    <MyMoneyInput Label="Price" Symbol="CHF" @bind-Value="_money" />
+    <MyMoneyIndicator Label="Price" Symbol="CHF" Value="_money" />
+</RadzenStack>
+@code {
     private decimal _money;
+    private DateTime _date;
+    private TimeSpan _timespan;
 }
